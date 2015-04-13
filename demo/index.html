@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Title bar demo</title>
+</head>
+<body>
+	<script type="text/javascript" src="index.js"></script>
+	<script type="text/javascript">
+		var log = function(name) {
+			return function(e) {
+				console.log(name, e);
+			};
+		};
+
+		titlebar()
+			.appendTo(document.body)
+			.on('close', log('close'))
+			.on('minimize', log('minimize'))
+			.on('fullscreen', log('fullscreen'))
+			.on('maximize', log('maximize'));
+	</script>
+</body>
+</html>
