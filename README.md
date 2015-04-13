@@ -1,6 +1,6 @@
 # titlebar
 
-Emulate OS X window title bar. Extracted from [mafintosh/playback](https://github.com/mafintosh/playback).
+Emulate OS X window title bar. Extracted from [mafintosh/playback](https://github.com/mafintosh/playback). See the [live demo](http://kapetan.github.io/titlebar/demo/index.html).
 
 	npm install titlebar
 
