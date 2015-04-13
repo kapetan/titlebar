@@ -1,6 +1,6 @@
 {
   "name": "titlebar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Emulate OS X window title bar",
   "main": "index.js",
   "scripts": {
