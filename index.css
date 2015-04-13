@@ -1,0 +1,55 @@
+.titlebar {
+	-webkit-app-region: drag;
+	padding: 0 3px;
+	background-color: #f6f6f6;
+}
+
+.titlebar-stoplight {
+	float: left;
+}
+
+.titlebar:after,
+.titlebar-stoplight:after {
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+.titlebar-stoplight:hover .titlebar-close {
+	margin-left: 6px;
+	background-position: -26px 0;
+}
+
+.titlebar-stoplight:hover .titlebar-minimize {
+	background-position: 0 0;
+}
+
+.titlebar-stoplight:hover .titlebar-fullscreen {
+	background-position: -13px 0;
+}
+
+.titlebar-close,
+.titlebar-minimize,
+.titlebar-fullscreen {
+	-webkit-app-region: no-drag;
+	float: left;
+	margin: 6px 4px;
+	background-image: url(%s);
+	background-size: auto 12px;
+	width: 12px;
+	height: 12px;
+	border-radius: 6px;
+}
+
+.titlebar-close {
+	margin-left: 6px;
+	background-position: -142px 0;
+}
+
+.titlebar-fullscreen {
+	background-position: -129px 0;
+}
+
+.titlebar-minimize {
+	background-position: -116px 0;
+}

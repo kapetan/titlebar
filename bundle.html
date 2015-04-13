@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Titlebar</title>
+</head>
+<body>
+	<script type="text/javascript" src="index.js"></script>
+
+	<script type="text/javascript">
+		var log = console.log.bind(console);
+
+		titlebar()
+			.appendTo(document.body)
+			.on('close', log)
+			.on('minimize', log)
+			.on('fullscreen', log)
+			.on('maximize', log);
+	</script>
+</body>
+</html>

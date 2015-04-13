@@ -1,0 +1,38 @@
+{
+  "name": "titlebar",
+  "version": "1.0.0",
+  "description": "Emulate OS X window title bar",
+  "main": "index.js",
+  "scripts": {
+    "watch": "wzrd index.js -- --standalone titlebar"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kapetan/titlebar"
+  },
+  "keywords": [
+    "osx",
+    "window",
+    "titlebar",
+    "stoplight"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kapetan/titlebar/issues"
+  },
+  "homepage": "https://github.com/kapetan/titlebar",
+  "dependencies": {
+    "brfs": "^1.4.0",
+    "defaultcss": "^1.1.1",
+    "domify": "^1.3.3"
+  },
+  "devDependencies": {
+    "browserify": "^9.0.8",
+    "wzrd": "^1.2.1"
+  },
+  "browserify": {
+    "transform": [
+      "brfs"
+    ]
+  }
+}
