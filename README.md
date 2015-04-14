@@ -1,6 +1,6 @@
 # titlebar
 
-Emulate OS X window title bar. Extracted from [mafintosh/playback](https://github.com/mafintosh/playback).
+Emulate OS X window title bar. Extracted from [mafintosh/playback](https://github.com/mafintosh/playback). See the [live demo](http://kapetan.github.io/titlebar/demo/index.html).
 
 	npm install titlebar
 
@@ -19,6 +19,6 @@ t.on('close', function(e) {
 });
 ```
 
-The returned instance emits four events: `close`, `minimize`, `fullscreen` (each corresponding to one of the stoplight buttons) and `maximize` when double clicking on the titlebar area.
+The returned instance emits four events: `close`, `minimize`, `fullscreen` (each corresponding to one of the stoplight buttons) and `maximize` when double clicking on the title bar area.
 
 Holding down alt key to change the `fullscreen` button to `maximize` is not yet supported.
