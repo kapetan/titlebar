@@ -7,6 +7,9 @@ var $ = require('dombo');
 
 var stoplight = require('./stoplight');
 
+var ALT = 18;
+
+var $window = $(window);
 var style = fs.readFileSync(__dirname + '/index.css', 'utf-8');
 var html = fs.readFileSync(__dirname + '/index.html', 'utf-8');
 
@@ -29,13 +32,22 @@ var TitleBar = function(options) {
 
 	$element.on('click', function(e) {
 		if(e.target === close) self.emit('close', e);
-		if(e.target === minimize) self.emit('minimize', e);
-		if(e.target === fullscreen) self.emit('fullscreen', e);
+		else if(e.target === minimize) self.emit('minimize', e);
+		else if(e.target === fullscreen && e.altKey) self.emit('maximize', e);
+		else if(e.target === fullscreen) self.emit('fullscreen', e);
 	});
 
 	$element.on('dblclick', function(e) {
 		if(e.target === close || e.target === minimize || e.target === fullscreen) return;
 		self.emit('maximize', e);
+	});
+
+	$window.on('keydown', this._onkeydown = function(e) {
+		if(e.keyCode === ALT) $element.addClass('alt');
+	});
+
+	$window.on('keyup', this._onkeyup = function(e) {
+		if(e.keyCode === ALT) $element.removeClass('alt');
 	});
 };
 
@@ -46,6 +58,13 @@ TitleBar.prototype.appendTo = function(element) {
 	if(this._options.style !== false) defaultcss('titlebar', style);
 	element.appendChild(this.element);
 	return this;
+};
+
+TitleBar.prototype.destroy = function() {
+	var parent = this.element.parentNode;
+	if(parent) parent.removeChild(this.element);
+	$window.off('keydown', this._onkeydown);
+	$window.off('keyup', this._onkeyup);
 };
 
 module.exports = TitleBar;

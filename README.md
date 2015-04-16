@@ -19,6 +19,4 @@ t.on('close', function(e) {
 });
 ```
 
-The returned instance emits four events: `close`, `minimize`, `fullscreen` (each corresponding to one of the stoplight buttons) and `maximize` when double clicking on the title bar area.
-
-Holding down alt key to change the `fullscreen` button to `maximize` is not yet supported.
+The returned instance emits four events: `close`, `minimize`, `fullscreen` (each corresponding to one of the stoplight buttons) and `maximize` when double clicking on the title bar area, or holding down alt key and clicking `fullscreen`.
