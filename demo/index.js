@@ -8,7 +8,10 @@ var $ = require('dombo');
 
 var stoplight = require('./stoplight');
 
-var style = ".titlebar {\n\t-webkit-app-region: drag;\n\tpadding: 0 3px;\n\tbackground-color: #f6f6f6;\n}\n\n.titlebar-stoplight {\n\tfloat: left;\n}\n\n.titlebar:after,\n.titlebar-stoplight:after {\n\tcontent: ' ';\n\tdisplay: table;\n\tclear: both;\n}\n\n.titlebar-stoplight:hover .titlebar-close {\n\tmargin-left: 6px;\n\tbackground-position: -26px 0;\n}\n\n.titlebar-stoplight:hover .titlebar-minimize {\n\tbackground-position: 0 0;\n}\n\n.titlebar-stoplight:hover .titlebar-fullscreen {\n\tbackground-position: -13px 0;\n}\n\n.titlebar-close,\n.titlebar-minimize,\n.titlebar-fullscreen {\n\t-webkit-app-region: no-drag;\n\tfloat: left;\n\tmargin: 6px 4px;\n\tbackground-image: url(%s);\n\tbackground-size: auto 12px;\n\twidth: 12px;\n\theight: 12px;\n\tborder-radius: 6px;\n}\n\n.titlebar-close {\n\tmargin-left: 6px;\n\tbackground-position: -142px 0;\n}\n\n.titlebar-fullscreen {\n\tbackground-position: -129px 0;\n}\n\n.titlebar-minimize {\n\tbackground-position: -116px 0;\n}\n";
+var ALT = 18;
+
+var $window = $(window);
+var style = ".titlebar {\n\t-webkit-app-region: drag;\n\tpadding: 0 3px;\n\tbackground-color: #f6f6f6;\n}\n\n.titlebar-stoplight {\n\tfloat: left;\n}\n\n.titlebar:after,\n.titlebar-stoplight:after {\n\tcontent: ' ';\n\tdisplay: table;\n\tclear: both;\n}\n\n.titlebar-stoplight:hover .titlebar-close {\n\tbackground-position: -26px 0;\n}\n\n.titlebar-stoplight:hover .titlebar-minimize {\n\tbackground-position: 0 0;\n}\n\n.titlebar-stoplight:hover .titlebar-fullscreen {\n\tbackground-position: -13px 0;\n}\n\n.titlebar.alt .titlebar-stoplight:hover .titlebar-close {\n\tbackground-position: -104px 0;\n}\n\n.titlebar.alt .titlebar-stoplight:hover .titlebar-minimize {\n\tbackground-position: -78px 0;\n}\n\n.titlebar.alt .titlebar-stoplight:hover .titlebar-fullscreen {\n\tbackground-position: -91px 0;\n}\n\n.titlebar-close,\n.titlebar-minimize,\n.titlebar-fullscreen {\n\t-webkit-app-region: no-drag;\n\tfloat: left;\n\tmargin: 6px 4px;\n\tbackground-repeat: no-repeat;\n\tbackground-image: url(%s);\n\tbackground-size: auto 12px;\n\twidth: 12px;\n\theight: 12px;\n\tborder-radius: 6px;\n}\n\n.titlebar-close {\n\tmargin-left: 6px;\n\tbackground-position: -65px 0;\n}\n\n.titlebar-fullscreen {\n\tbackground-position: -52px 0;\n}\n\n.titlebar-minimize {\n\tbackground-position: -39px 0;\n}\n";
 var html = "<div class=\"titlebar\">\n\t<div class=\"titlebar-stoplight\">\n\t\t<div class=\"titlebar-close\"></div>\n\t\t<div class=\"titlebar-minimize\"></div>\n\t\t<div class=\"titlebar-fullscreen\"></div>\n\t</div>\n</div>\n";
 
 style = util.format(style, stoplight);
@@ -30,13 +33,22 @@ var TitleBar = function(options) {
 
 	$element.on('click', function(e) {
 		if(e.target === close) self.emit('close', e);
-		if(e.target === minimize) self.emit('minimize', e);
-		if(e.target === fullscreen) self.emit('fullscreen', e);
+		else if(e.target === minimize) self.emit('minimize', e);
+		else if(e.target === fullscreen && e.altKey) self.emit('maximize', e);
+		else if(e.target === fullscreen) self.emit('fullscreen', e);
 	});
 
 	$element.on('dblclick', function(e) {
 		if(e.target === close || e.target === minimize || e.target === fullscreen) return;
 		self.emit('maximize', e);
+	});
+
+	$window.on('keydown', this._onkeydown = function(e) {
+		if(e.keyCode === ALT) $element.addClass('alt');
+	});
+
+	$window.on('keyup', this._onkeyup = function(e) {
+		if(e.keyCode === ALT) $element.removeClass('alt');
 	});
 };
 
@@ -47,6 +59,13 @@ TitleBar.prototype.appendTo = function(element) {
 	if(this._options.style !== false) defaultcss('titlebar', style);
 	element.appendChild(this.element);
 	return this;
+};
+
+TitleBar.prototype.destroy = function() {
+	var parent = this.element.parentNode;
+	if(parent) parent.removeChild(this.element);
+	$window.off('keydown', this._onkeydown);
+	$window.off('keyup', this._onkeyup);
 };
 
 module.exports = TitleBar;
@@ -2951,7 +2970,7 @@ function parse(html, doc) {
 var util = require('util');
 
 
-var png = Buffer("iVBORw0KGgoAAAANSUhEUgAAAJoAAAAYCAYAAAACh+TEAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpjNzNlYjcwNy02OTI5LTRmOTQtOGMyMS00ZDQ0MzJhOGZhNGEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDA3RTFGNTZENTI2MTFFNEEyNTNENEQzNEU4NjhBRjYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDA3RTFGNTVENTI2MTFFNEEyNTNENEQzNEU4NjhBRjYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgTWFjaW50b3NoIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6YzczZWI3MDctNjkyOS00Zjk0LThjMjEtNGQ0NDMyYThmYTRhIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOmM3M2ViNzA3LTY5MjktNGY5NC04YzIxLTRkNDQzMmE4ZmE0YSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqAgjroAAAOlSURBVHja7JrNTxNBGMafmd1+CIVaMCFqS8QgRE8GDsaEA0YOXowxHky86R9nPJh49YAJMSQmJhBPRjHRoNS0CFJKoWy7M+M70xYaUgj9wNZ1nmQ7C13YpfPL877PDEzMzyqcoZy5BabHm4tPzvQ+H2aem/v4jx+d7d/z4qW5j3xzx35uTYjDyuovyIJmZUGzCo7c3ngMBcYlwCQYnUOxw7fqTpWSkEJBqjIcPmBnz4LWEmtQkkFKPRJwrEaZMiNjGkFOQLr0GrIzZ0FrjTIlS9hLZ1HMbCG/ugHplSF9aaBTohqImMLkswcEG6vw14RevXlnxnsz0zgXCTe8puiV8HpxyZw/vHu7q5+ImJ8147Tt0doTozIJaPsSBJNPDMnKB+wLlPL7KNMhiiUIz4csC8iSOCiprL6eNqGN7bwBSQN1HGT6GqsggcZFtTSW6CHKoKYLfclRJG6MYuTWOMKJfggNlzyonsSkqFXZpqWd7EJ8sCFs9ZDpa/S1VkFJnaziYLtrWRTW1qnRj4I5CtHhOAavXSHgkoiNDh+Bk6NV0nS5bARbI8iOK61W/2CPpqRjxp2vGfi7HiKJGCJDA6YPc1yG+HgKzHWNi+1l8uDUl0kh27pnDbYaWLV+zELWBdCWl7NYWsq29Mump0cwNTVyStK4caZCepMaf4HCj03yV4ZQXwyMQqUbimDwapJAKxvj3f+1XXU0nUApPKjOwKbVo5DpufGto7VdOiuNl7+n06VA7lOaXE4gPhFFKOSa+uiEHfp6jABzkM3t1FX6atMWbIUDDZp2pFO7Ulu1Ux2OdOymfxuAuBvCwNhl8Eg/nfvkbA5iqWHq44bAHaft2x7tyerTaI+5WqB2bboYBiqOpNfIlCTAQpQ9Cx5yn9ewvbJKLudVdgoIQjeWQGIyifPXUy1mzuPT5UlptMsSFrTO2Rq5FDvovfw9D4Xvm9j6uIb8yjf4RQnhV96PjabQf/FSRyHT7nVcGu0BlSxoHWGs6mjycAFWO5veavJyBay//4LsW5r0zE+qrJQ44ZgtqFYd7aQljEawWUcLCGhKp06CioddMFePDhi5G4+4FAJcs82k9JJGWRq2NID0TfPI5mdb0Enpsh42qyClTrPkzzHx9D4ar1XU9jdrL+2lzNPsXWrYur3HaUHrNGayBM4j5GIeuZVTBUsdqYys1slVFngVszNmQWuyZvNoNXVGoew8BF72P2ytLGj/s5y5BXNY0KysmtAfAQYA4TXBf+spnooAAAAASUVORK5CYII=","base64");
+var png = Buffer("iVBORw0KGgoAAAANSUhEUgAAAOgAAAAYCAYAAADwO7FhAAAABmJLR0QA/wD/AP+gvaeTAAAETUlEQVR42u2bz0tcVxTHP+e+NzMaf3U0IG1VmpIozSaii1JwkVIXbkIpXRS6Ke1/1k1poaWLbrJIQIpQKBiSTakGWtJq0VQTnYw/Zubde7p4jlozis48cyd6P4thmPfe3DOH833n3PPOiL13WzlHoulZARif+/xc13k49Y0AJJ99er6/59vvBcDd/zD47QzE3/0gACHezoY5zy8PBAKtEQQaCLQxQaCBQBsT+zYgRRHjQByCgsrBoUNvVR3OKk5rRKbHt9GBC8L6owUABm6N+TblJdpEoICCOsE5UOcQgVSdCggigmIQE2PI+bY2cIF49nARCAI9AUVdle3lVXZWnlN6soar1HCJQ51D7V6jTJSxrz5GjKS6PQM/3v8FgJmpSToL+Ybn7FSq3J2bB+CTjz7w6hF77zYAk16tCDRLVvHmbQ8q4gAHalGXIOoAsImlWtqlVtrF7lSxlQRXs7iq3S995XDdewbWNkvcnZtnp1I91llrmyVfLglcMLKIN38CNZa0hK1iqEFkuDI0QvHmCIPvXydf7MJWLTjqVS5qLXDm5Amkd7Krfb0NnXbYWVf7epmZCnkr0BpZxZu/Lq6kGXNraZXy0lNUO5BI6Rjoo/fGOxRvDtE9MvD/S8yeuU0otLOQb+i0Rs46riQJBE5LVvHmbQ+qLgLgxR8rJFsVCsVuCv09IEoUC33Xh5E4Rq1le6WEMYKzLhOn1R1Ur/+DOAPnQRbx9pJAHzxYZX5+tSmDJicHmZgYPN3JakChvLyOq1jKf6+DEXJXupEcxLkCve8OobYGGHb/3dzLoIKIok0OWB11GtCu4oyBxLcR582rirf1Rwv73drjePz1Tw0/7x8fbbrD22q8+eviSrqxTLZruMSy8fsy6ix9ox3kcjGgRPmIvtFriIlY3XjBQUW+tym92OS5BAINnMxLAp2YOEMWbIV6ClQFVbaWnwGKiXP0XHsbU+jCxAlxLqJ7eIDyUj8milpe9ugeAA66bW2WRS/FlNerireBW2PHZsF65rzxxZ3M12013jw2idIMqFZRp5icoVausLGwxObiE1xSSSeLVIm7ixTHhnjjvWGa6+E2dtbM1OSJ3TbPWN8GBFoji3jzfJdWTCT7e8tku0L5r3We/7ZEafFPkh2HTdLj3SPDdL35VqbO6izkj+22tQFtYUSgObKKN38C3Rs6UHcweKBOEREqG2We/vqY1Z/n2Vn5B1XBEaEYms2gJ7W2GzmtDQgZ9DUmq3jzJlBVAyKYfIzEgslHSCSYQkyUjxEjqBFczYGCiIAYwKTXNsFJ3bPDTgsEsiCLePM4i+sAw+iXd2j8zKQ+f1t/aa1re5rZ2s5C3vsMbuBikFW8eROoc1WMKSBRBZGIVJB6pILdK30x6WCDXvhHKwEP9I+P+jbhWLwJ1JgOANR2tNCXDQRapx3/ZlbnUjxrCwReV4JA25RoepZoeta3GQHPBIEGAm3MfxIveNEtAGhmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg==","base64");
 var url = 'data:image/png;base64,' + png.toString('base64');
 
 module.exports = url;
