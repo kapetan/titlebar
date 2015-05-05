@@ -11,7 +11,7 @@ var stoplight = require('./stoplight');
 var ALT = 18;
 
 var $window = $(window);
-var style = ".titlebar {\n\t-webkit-app-region: drag;\n\tpadding: 0 3px;\n\tbackground-color: #f6f6f6;\n}\n\n.titlebar-stoplight {\n\tfloat: left;\n}\n\n.titlebar:after,\n.titlebar-stoplight:after {\n\tcontent: ' ';\n\tdisplay: table;\n\tclear: both;\n}\n\n.titlebar-stoplight:hover .titlebar-close {\n\tbackground-position: -26px 0;\n}\n\n.titlebar-stoplight:hover .titlebar-minimize {\n\tbackground-position: 0 0;\n}\n\n.titlebar-stoplight:hover .titlebar-fullscreen {\n\tbackground-position: -13px 0;\n}\n\n.titlebar.alt .titlebar-stoplight:hover .titlebar-close {\n\tbackground-position: -104px 0;\n}\n\n.titlebar.alt .titlebar-stoplight:hover .titlebar-minimize {\n\tbackground-position: -78px 0;\n}\n\n.titlebar.alt .titlebar-stoplight:hover .titlebar-fullscreen {\n\tbackground-position: -91px 0;\n}\n\n.titlebar-close,\n.titlebar-minimize,\n.titlebar-fullscreen {\n\t-webkit-app-region: no-drag;\n\tfloat: left;\n\tmargin: 6px 4px;\n\tbackground-repeat: no-repeat;\n\tbackground-image: url(%s);\n\tbackground-size: auto 12px;\n\twidth: 12px;\n\theight: 12px;\n\tborder-radius: 6px;\n}\n\n.titlebar-close {\n\tmargin-left: 6px;\n\tbackground-position: -65px 0;\n}\n\n.titlebar-fullscreen {\n\tbackground-position: -52px 0;\n}\n\n.titlebar-minimize {\n\tbackground-position: -39px 0;\n}\n";
+var style = ".titlebar {\n\tpadding: 0 3px;\n\tbackground-color: #f6f6f6;\n}\n\n.titlebar.webkit-draggable {\n\t-webkit-app-region: drag;\n}\n\n.titlebar-stoplight {\n\tfloat: left;\n}\n\n.titlebar:after,\n.titlebar-stoplight:after {\n\tcontent: ' ';\n\tdisplay: table;\n\tclear: both;\n}\n\n.titlebar-stoplight:hover .titlebar-close {\n\tbackground-position: -26px 0;\n}\n\n.titlebar-stoplight:hover .titlebar-minimize {\n\tbackground-position: 0 0;\n}\n\n.titlebar-stoplight:hover .titlebar-fullscreen {\n\tbackground-position: -13px 0;\n}\n\n.titlebar.alt .titlebar-stoplight:hover .titlebar-close {\n\tbackground-position: -104px 0;\n}\n\n.titlebar.alt .titlebar-stoplight:hover .titlebar-minimize {\n\tbackground-position: -78px 0;\n}\n\n.titlebar.alt .titlebar-stoplight:hover .titlebar-fullscreen {\n\tbackground-position: -91px 0;\n}\n\n.titlebar-close,\n.titlebar-minimize,\n.titlebar-fullscreen {\n\tfloat: left;\n\tmargin: 6px 4px;\n\tbackground-repeat: no-repeat;\n\tbackground-image: url(%s);\n\tbackground-size: auto 12px;\n\twidth: 12px;\n\theight: 12px;\n\tborder-radius: 6px;\n}\n\n.titlebar.webkit-draggable .titlebar-close,\n.titlebar.webkit-draggable .titlebar-minimize,\n.titlebar.webkit-draggable .titlebar-fullscreen {\n\t-webkit-app-region: no-drag;\n}\n\n.titlebar-close {\n\tmargin-left: 6px;\n\tbackground-position: -65px 0;\n}\n\n.titlebar-fullscreen {\n\tbackground-position: -52px 0;\n}\n\n.titlebar-minimize {\n\tbackground-position: -39px 0;\n}\n";
 var html = "<div class=\"titlebar\">\n\t<div class=\"titlebar-stoplight\">\n\t\t<div class=\"titlebar-close\"></div>\n\t\t<div class=\"titlebar-minimize\"></div>\n\t\t<div class=\"titlebar-fullscreen\"></div>\n\t</div>\n</div>\n";
 
 style = util.format(style, stoplight);
@@ -25,6 +25,8 @@ var TitleBar = function(options) {
 	var element = domify(html);
 	var $element = $(element);
 	this.element = element;
+
+	if(this._options.draggable !== false) $element.addClass('webkit-draggable');
 
 	var self = this;
 	var close = $('.titlebar-close', element)[0];
