@@ -1,7 +1,10 @@
 .titlebar {
-	-webkit-app-region: drag;
 	padding: 0 3px;
 	background-color: #f6f6f6;
+}
+
+.titlebar.webkit-draggable {
+	-webkit-app-region: drag;
 }
 
 .titlebar-stoplight {
@@ -42,7 +45,6 @@
 .titlebar-close,
 .titlebar-minimize,
 .titlebar-fullscreen {
-	-webkit-app-region: no-drag;
 	float: left;
 	margin: 6px 4px;
 	background-repeat: no-repeat;
@@ -51,6 +53,12 @@
 	width: 12px;
 	height: 12px;
 	border-radius: 6px;
+}
+
+.titlebar.webkit-draggable .titlebar-close,
+.titlebar.webkit-draggable .titlebar-minimize,
+.titlebar.webkit-draggable .titlebar-fullscreen {
+	-webkit-app-region: no-drag;
 }
 
 .titlebar-close {

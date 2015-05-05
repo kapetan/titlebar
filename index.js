@@ -25,6 +25,8 @@ var TitleBar = function(options) {
 	var $element = $(element);
 	this.element = element;
 
+	if(this._options.draggable !== false) $element.addClass('webkit-draggable');
+
 	var self = this;
 	var close = $('.titlebar-close', element)[0];
 	var minimize = $('.titlebar-minimize', element)[0];
