@@ -62,14 +62,31 @@
 }
 
 .titlebar-close {
+	position: relative;
 	margin-left: 6px;
 	background-position: -65px 0;
 }
 
 .titlebar-fullscreen {
+	position: relative;
 	background-position: -52px 0;
 }
 
 .titlebar-minimize {
+	position: relative;
 	background-position: -39px 0;
+}
+
+.titlebar-close:active::after,
+.titlebar-minimize:active::after,
+.titlebar-fullscreen:active::after {
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	content: "";
+	background: rgba(0, 0, 0, .25);
+	border-radius: 100%;
 }
