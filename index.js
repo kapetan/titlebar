@@ -43,6 +43,15 @@ var TitleBar = function(options) {
 		if(e.target === close || e.target === minimize || e.target === fullscreen) return;
 		self.emit('maximize', e);
 	});
+};
+
+util.inherits(TitleBar, events.EventEmitter);
+
+TitleBar.prototype.appendTo = function(target) {
+	if(typeof target === 'string') target = $(target)[0];
+	if(this._options.style !== false) defaultcss('titlebar', style);
+
+	var $element = $(this.element);
 
 	$window.on('keydown', this._onkeydown = function(e) {
 		if(e.keyCode === ALT) $element.addClass('alt');
@@ -51,14 +60,8 @@ var TitleBar = function(options) {
 	$window.on('keyup', this._onkeyup = function(e) {
 		if(e.keyCode === ALT) $element.removeClass('alt');
 	});
-};
 
-util.inherits(TitleBar, events.EventEmitter);
-
-TitleBar.prototype.appendTo = function(element) {
-	if(typeof element === 'string') element = $(element)[0];
-	if(this._options.style !== false) defaultcss('titlebar', style);
-	element.appendChild(this.element);
+	target.appendChild(this.element);
 	return this;
 };
 
@@ -67,6 +70,7 @@ TitleBar.prototype.destroy = function() {
 	if(parent) parent.removeChild(this.element);
 	$window.off('keydown', this._onkeydown);
 	$window.off('keyup', this._onkeyup);
+	return this;
 };
 
 module.exports = TitleBar;
