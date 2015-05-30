@@ -17,6 +17,12 @@ t.appendTo(document.body);
 t.on('close', function(e) {
 	console.log('close');
 });
+
+// t.element exposes the root dom element
+t.element.appendChild(document.createElement('div'));
+
+// Clean up after usage
+t.destroy();
 ```
 
 The returned instance emits four events: `close`, `minimize`, `fullscreen` (each corresponding to one of the stoplight buttons) and `maximize` when double clicking on the title bar area, or holding down alt key and clicking `fullscreen`.
