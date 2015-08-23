@@ -1,3 +1,4 @@
 node_modules
 demo/index.js
+.module-cache
 .DS_Store

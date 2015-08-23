@@ -10,7 +10,7 @@ style = util.format(style, stoplight);
 
 var ALT = 18;
 
-module.exports = React.createClass({displayName: "exports",
+module.exports = React.createClass({
 
     getInitialState: function() {
         return {
@@ -67,14 +67,14 @@ module.exports = React.createClass({displayName: "exports",
         defaultcss('titlebar', style);
 
         return (
-            React.createElement("div", {className: classes, id: "titlebar"}, 
-            	React.createElement("div", {className: "titlebar-stoplight"}, 
-            		React.createElement("div", {onDoubleClick: this.handleNop, onClick: this.props.handleClose, className: "titlebar-close"}), 
-            		React.createElement("div", {onDoubleClick: this.handleNop, onClick: this.props.handleMinimize, className: "titlebar-minimize"}), 
-            		React.createElement("div", {onDoubleClick: this.handleNop, onClick: this.handleMaximize, className: "titlebar-fullscreen"})
-            	), 
-                this.props.children
-            )
+            <div className={classes} id="titlebar">
+            	<div className="titlebar-stoplight">
+            		<div onDoubleClick={this.handleNop} onClick={this.props.handleClose} className="titlebar-close"></div>
+            		<div onDoubleClick={this.handleNop} onClick={this.props.handleMinimize} className="titlebar-minimize"></div>
+            		<div onDoubleClick={this.handleNop} onClick={this.handleMaximize} className="titlebar-fullscreen"></div>
+            	</div>
+                {this.props.children}
+            </div>
         )
     }
 });

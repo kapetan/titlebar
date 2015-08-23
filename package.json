@@ -1,7 +1,7 @@
 {
-  "name": "titlebar",
+  "name": "titlebar-react",
   "version": "1.3.0",
-  "description": "Emulate OS X window title bar",
+  "description": "Emulate OS X window title bar using React.js",
   "main": "index.js",
   "scripts": {
     "demo-watch": "wzrd index.js:demo/index.js -- -s titlebar",
@@ -9,24 +9,29 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kapetan/titlebar"
+    "url": "https://github.com/tgdn/titlebar-react"
   },
   "keywords": [
     "osx",
     "window",
     "titlebar",
-    "stoplight"
+    "stoplight",
+    "react",
+    "reactjs",
+    "react.js"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kapetan/titlebar/issues"
+    "url": "https://github.com/tgdn/titlebar-react/issues"
   },
-  "homepage": "https://github.com/kapetan/titlebar",
+  "homepage": "https://github.com/tgdn/titlebar-react",
   "dependencies": {
     "brfs": "^1.4.0",
+    "classnames": "^2.1.3",
     "defaultcss": "^1.1.1",
     "dombo": "^3.2.0",
-    "domify": "^1.3.3"
+    "domify": "^1.3.3",
+    "react": "^0.13.3"
   },
   "devDependencies": {
     "browserify": "^9.0.8",
