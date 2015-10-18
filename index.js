@@ -5,15 +5,11 @@ var defaultcss = require('defaultcss');
 var domify = require('domify');
 var $ = require('dombo');
 
-var stoplight = require('./stoplight');
-
 var ALT = 18;
 
 var $window = $(window);
 var style = fs.readFileSync(__dirname + '/index.css', 'utf-8');
 var html = fs.readFileSync(__dirname + '/index.html', 'utf-8');
-
-style = util.format(style, stoplight);
 
 var TitleBar = function(options) {
 	if(!(this instanceof TitleBar)) return new TitleBar(options);
@@ -33,14 +29,18 @@ var TitleBar = function(options) {
 	var fullscreen = $('.titlebar-fullscreen', element)[0];
 
 	$element.on('click', function(e) {
-		if(e.target === close) self.emit('close', e);
-		else if(e.target === minimize) self.emit('minimize', e);
-		else if(e.target === fullscreen && e.altKey) self.emit('maximize', e);
-		else if(e.target === fullscreen) self.emit('fullscreen', e);
+		var target = e.target;
+		if(close.contains(target)) self.emit('close', e);
+		else if(minimize.contains(target)) self.emit('minimize', e);
+		else if(fullscreen.contains(target)) {
+			if(e.altKey) self.emit('maximize', e);
+			else self.emit('fullscreen', e);
+		}
 	});
 
 	$element.on('dblclick', function(e) {
-		if(e.target === close || e.target === minimize || e.target === fullscreen) return;
+		var target = e.target;
+		if(close.contains(target) || minimize.contains(target) || fullscreen.contains(target)) return;
 		self.emit('maximize', e);
 	});
 };
