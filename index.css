@@ -51,8 +51,8 @@
 }
 
 .titlebar-close {
-	border: 1px solid rgb(226, 70, 63);
-	background-color: rgb(255, 95, 87);
+	border: 1px solid #e2463f;
+	background-color: #ff5f57;
 	margin-left: 6px;
 }
 
@@ -70,8 +70,8 @@
 }
 
 .titlebar-minimize {
-	border: 1px solid rgb(225, 161, 22);
-	background-color: rgb(255, 189, 46);
+	border: 1px solid #e1a116;
+	background-color: #ffbd2e;
 }
 
 .titlebar-minimize:active {
@@ -89,8 +89,8 @@
 
 .titlebar-fullscreen,
 .titlebar-maximize {
-	border: 1px solid rgb(18, 172, 40);
-	background-color: rgb(40, 201, 64);
+	border: 1px solid #12ac28;
+	background-color: #28c940;
 }
 
 .titlebar-fullscreen:active {
