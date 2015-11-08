@@ -1,6 +1,13 @@
 .titlebar {
 	padding: 0 3px;
 	background-color: #f6f6f6;
+	box-sizing: content-box;
+}
+
+.titlebar *,
+.titlebar :before,
+.titlebar :after {
+	box-sizing: inherit;
 }
 
 .titlebar.webkit-draggable {
