@@ -8,6 +8,10 @@ var $ = require('dombo');
 var ALT = 18;
 
 var $window = $(window);
+var styleMac = fs.readFileSync(__dirname + '/index-mac.css', 'utf-8');
+var htmlMac = fs.readFileSync(__dirname + '/index-mac.html', 'utf-8');
+var styleWin = fs.readFileSync(__dirname + '/index-win.css', 'utf-8');
+var htmlWin = fs.readFileSync(__dirname + '/index-win.html', 'utf-8');
 
 var TitleBar = function(options) {
 	if(!(this instanceof TitleBar)) return new TitleBar(options);
@@ -15,7 +19,7 @@ var TitleBar = function(options) {
 	events.EventEmitter.call(this);
 	this._options = options || {};
 
-	if (this._options.os != 'mac' && this._options.os != 'win'){
+	if (this._options.os == 'mac' && this._options.os == 'win'){
 		if (process.platform == 'darwin') this._options.os = 'mac';
 		else if (process.platform == 'win32') this._options.os = 'win';
 		else {
@@ -23,9 +27,8 @@ var TitleBar = function(options) {
 			this._options.os = 'mac';
 		}
 	}
-	var style = fs.readFileSync(__dirname + '/index-'+this._options.os+'.css', 'utf-8');
-	var html = fs.readFileSync(__dirname + '/index-'+this._options.os+'.html', 'utf-8');
-
+	if (this._options.os == 'mac') var html = htmlMac;
+	else if (this._options.os == 'win') var html = htmlWin;
 	var element = domify(html);
 	var $element = $(element);
 	this.element = element;
@@ -57,6 +60,17 @@ var TitleBar = function(options) {
 util.inherits(TitleBar, events.EventEmitter);
 
 TitleBar.prototype.appendTo = function(target) {
+	if (this._options.os == 'mac' && this._options.os == 'win'){
+		if (process.platform == 'darwin') this._options.os = 'mac';
+		else if (process.platform == 'win32') this._options.os = 'win';
+		else {
+			console.error('No supported os style type was given. Using OS X style as default.')
+			this._options.os = 'mac';
+		}
+	}
+	if (this._options.os == 'mac') var style = styleMac;
+	else if (this._options.os == 'win') var style = styleWin;
+
 	if(typeof target === 'string') target = $(target)[0];
 	if(this._options.style !== false) defaultcss('titlebar', style);
 
