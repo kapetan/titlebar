@@ -8,14 +8,23 @@ var $ = require('dombo');
 var ALT = 18;
 
 var $window = $(window);
-var style = fs.readFileSync(__dirname + '/index.css', 'utf-8');
-var html = fs.readFileSync(__dirname + '/index.html', 'utf-8');
 
 var TitleBar = function(options) {
 	if(!(this instanceof TitleBar)) return new TitleBar(options);
 
 	events.EventEmitter.call(this);
 	this._options = options || {};
+
+	if (this._options.os != 'mac' && this._options.os != 'win'){
+		if (process.platform == 'darwin') this._options.os = 'mac';
+		else if (process.platform == 'win32') this._options.os = 'win';
+		else {
+			console.error('No supported os style type was given. Using OS X style as default.')
+			this._options.os = 'mac';
+		}
+	}
+	var style = fs.readFileSync(__dirname + '/index-'+this._options.os+'.css', 'utf-8');
+	var html = fs.readFileSync(__dirname + '/index-'+this._options.os+'.html', 'utf-8');
 
 	var element = domify(html);
 	var $element = $(element);
