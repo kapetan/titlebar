@@ -3,6 +3,8 @@
 	height: 30px;
 	padding: 0;
 	background-color: #9cf;
+} .titlebar.tb-win.maximized {
+	height: 22px;
 }
 
 .tb-win.titlebar.webkit-draggable {
@@ -37,6 +39,12 @@
 	-o-transition: background-color .2s;
 	transition: background-color .2s;
 }
+.tb-win.maximized .titlebar-minimize,
+.tb-win.maximized .titlebar-maximize,
+.tb-win.maximized .titlebar-close {
+	height: 21px;
+	line-height: 21px;
+}
 
 .tb-win.titlebar.webkit-draggable .titlebar-minimize,
 .tb-win.titlebar.webkit-draggable .titlebar-maximize,
@@ -44,25 +52,24 @@
 	-webkit-app-region: no-drag;
 }
 
-.tb-win .titlebar-minimize svg {
-	width: 10px;
-	height: 10px;
-}
-
-.tb-win .titlebar-maximize svg.maximize-svg {
-	width: 10px;
-	height: 10px;
-}
-
-.tb-win .titlebar-maximize svg.unmaximize-svg {
-	width: 10px;
-	height: 10px;
-	display: none;
-}
-
+.tb-win .titlebar-minimize svg,
+.tb-win .titlebar-maximize svg.maximize-svg,
+.tb-win .titlebar-maximize svg.unmaximize-svg,
 .tb-win .titlebar-close svg {
 	width: 10px;
 	height: 10px;
+} .tb-win .titlebar-close svg polygon {
+	-webkit-transition: fill .2s;
+	-moz-transition: fill .2s;
+	-ms-transition: fill .2s;
+	-o-transition: fill .2s;
+	transition: fill .2s;
+}
+
+.tb-win.titlebar:not(.maximized) .titlebar-maximize svg.unmaximize-svg {
+	display: none;
+} .tb-win.titlebar.maximized .titlebar-maximize svg.maximize-svg {
+	display: none;
 }
 
 .tb-win .titlebar-minimize:hover,
@@ -72,4 +79,6 @@
 }
 .tb-win .titlebar-close:hover {
 	background-color: #E81123;
+} .tb-win .titlebar-close:hover svg polygon {
+	fill: #fff;
 }

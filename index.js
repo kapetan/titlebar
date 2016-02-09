@@ -38,15 +38,31 @@ var TitleBar = function(options) {
 	var self = this;
 	var close = $('.titlebar-close', element)[0];
 	var minimize = $('.titlebar-minimize', element)[0];
+	var maximize = $('.titlebar-maximize', element)[0];
 	var fullscreen = $('.titlebar-fullscreen', element)[0];
+
+	var os = this._options.os;
 
 	$element.on('click', function(e) {
 		var target = e.target;
 		if(close.contains(target)) self.emit('close', e);
 		else if(minimize.contains(target)) self.emit('minimize', e);
-		else if(fullscreen.contains(target)) {
-			if(e.altKey) self.emit('maximize', e);
-			else self.emit('fullscreen', e);
+		else if (os == 'mac'){
+			if(fullscreen.contains(target)) {
+				if(e.altKey) self.emit('maximize', e);
+				else self.emit('fullscreen', e);
+			}
+		}
+		else if (os == 'win'){
+			if(maximize.contains(target)) {
+				if($element.hasClass('maximized')){
+					self.emit('unmaximize', e);
+					$element.removeClass('maximized');
+				} else {
+					self.emit('maximize', e);
+					$element.addClass('maximized');
+				}
+			}
 		}
 	});
 
