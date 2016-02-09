@@ -19,6 +19,8 @@
 			.on('fullscreen', log('fullscreen'))
 			.on('maximize', log('maximize'));
 
+		document.write('<br>');
+
 		var tw = titlebar({'os':'win'})
 			.appendTo(document.body)
 			.on('close', log('close'))

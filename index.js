@@ -60,14 +60,6 @@ var TitleBar = function(options) {
 util.inherits(TitleBar, events.EventEmitter);
 
 TitleBar.prototype.appendTo = function(target) {
-	if (this._options.os == 'mac' && this._options.os == 'win'){
-		if (process.platform == 'darwin') this._options.os = 'mac';
-		else if (process.platform == 'win32') this._options.os = 'win';
-		else {
-			console.error('No supported os style type was given. Using OS X style as default.')
-			this._options.os = 'mac';
-		}
-	}
 	if (this._options.os == 'mac') var style = styleMac;
 	else if (this._options.os == 'win') var style = styleWin;
 
