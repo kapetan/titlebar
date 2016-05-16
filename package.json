@@ -1,11 +1,11 @@
 {
   "name": "titlebar",
   "version": "1.5.0",
-  "description": "Emulate OS X window title bar",
+  "description": "Emulate window title bar",
   "main": "index.js",
   "scripts": {
-    "start": "wzrd index.js:demo/index.js -- -s titlebar",
-    "test": "browserify -t brfs index.js -o demo/index.js -s titlebar"
+	"demo-watch": "wzrd index.js:demo/index.js -- -s titlebar",
+    "demo-build": "browserify index.js -o demo/index.js -s titlebar"
   },
   "repository": {
     "type": "git",

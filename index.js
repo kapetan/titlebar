@@ -19,16 +19,16 @@ var TitleBar = function(options) {
 	events.EventEmitter.call(this);
 	this._options = options || {};
 
-	if (this._options.os == 'mac' && this._options.os == 'win'){
-		if (process.platform == 'darwin') this._options.os = 'mac';
-		else if (process.platform == 'win32') this._options.os = 'win';
+	if (this._options.os !== 'mac' && this._options.os !== 'win'){
+		if (process.platform === 'darwin') this._options.os = 'mac';
+		else if (process.platform === 'win32') this._options.os = 'win';
 		else {
-			console.error('No supported os style type was given. Using OS X style as default.')
+			console.warn('No supported OS option was given. Using OS X style as default.')
 			this._options.os = 'mac';
 		}
 	}
-	if (this._options.os == 'mac') var html = htmlMac;
-	else if (this._options.os == 'win') var html = htmlWin;
+	if (this._options.os === 'mac') var html = htmlMac;
+	else if (this._options.os === 'win') var html = htmlWin;
 	var element = domify(html);
 	var $element = $(element);
 	this.element = element;
@@ -47,28 +47,23 @@ var TitleBar = function(options) {
 		var target = e.target;
 		if(close.contains(target)) self.emit('close', e);
 		else if(minimize.contains(target)) self.emit('minimize', e);
-		else if (os == 'mac'){
+		else if (os === 'mac'){
 			if(fullscreen.contains(target)) {
 				if(e.altKey) self.emit('maximize', e);
 				else self.emit('fullscreen', e);
 			}
 		}
-		else if (os == 'win'){
+		else if (os === 'win'){
 			if(maximize.contains(target)) {
-				if($element.hasClass('maximized')){
-					self.emit('unmaximize', e);
-					$element.removeClass('maximized');
-				} else {
-					self.emit('maximize', e);
-					$element.addClass('maximized');
-				}
+				$element.toggleClass('maximized');
+				self.emit('maximize', e);
 			}
 		}
 	});
 
 	$element.on('dblclick', function(e) {
 		var target = e.target;
-		if(close.contains(target) || minimize.contains(target) || fullscreen.contains(target)) return;
+		if(close.contains(target) || minimize.contains(target) || (os === 'mac' && fullscreen.contains(target)) || (os === 'win' && maximize.contains(target))) return;
 		self.emit('maximize', e);
 	});
 };
@@ -76,8 +71,7 @@ var TitleBar = function(options) {
 util.inherits(TitleBar, events.EventEmitter);
 
 TitleBar.prototype.appendTo = function(target) {
-	if (this._options.os == 'mac') var style = styleMac;
-	else if (this._options.os == 'win') var style = styleWin;
+	var style = (this._options.os === 'win') ? styleWin : styleMac
 
 	if(typeof target === 'string') target = $(target)[0];
 	if(this._options.style !== false) defaultcss('titlebar', style);
