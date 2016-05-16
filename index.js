@@ -27,8 +27,8 @@ var TitleBar = function(options) {
 			this._options.os = 'mac';
 		}
 	}
-	if (this._options.os === 'mac') var html = htmlMac;
-	else if (this._options.os === 'win') var html = htmlWin;
+	
+	var style = (this._options.os === 'win') ? htmlWin : htmlMac;
 	var element = domify(html);
 	var $element = $(element);
 	this.element = element;
@@ -71,7 +71,7 @@ var TitleBar = function(options) {
 util.inherits(TitleBar, events.EventEmitter);
 
 TitleBar.prototype.appendTo = function(target) {
-	var style = (this._options.os === 'win') ? styleWin : styleMac
+	var style = (this._options.os === 'win') ? styleWin : styleMac;
 
 	if(typeof target === 'string') target = $(target)[0];
 	if(this._options.style !== false) defaultcss('titlebar', style);
