@@ -28,7 +28,7 @@ var TitleBar = function(options) {
 		}
 	}
 	
-	var style = (this._options.os === 'win') ? htmlWin : htmlMac;
+	var html = (this._options.os === 'win') ? htmlWin : htmlMac;
 	var element = domify(html);
 	var $element = $(element);
 	this.element = element;
