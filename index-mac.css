@@ -7,21 +7,21 @@
 	-webkit-app-region: drag;
 }
 
-.tb-mac .titlebar-controls {
+.tb-mac .titlebar-stoplight {
 	float: left;
 	text-align: left;
 }
 
 .tb-mac.titlebar:after,
-.tb-mac .titlebar-controls:after {
+.tb-mac .titlebar-stoplight:after {
 	content: ' ';
 	display: table;
 	clear: both;
 }
 
-.tb-mac .titlebar-controls:hover svg,
-.tb-mac .titlebar-controls:hover svg.fullscreen-svg,
-.tb-mac .titlebar-controls:hover svg.maximize-svg {
+.tb-mac .titlebar-stoplight:hover svg,
+.tb-mac .titlebar-stoplight:hover svg.fullscreen-svg,
+.tb-mac .titlebar-stoplight:hover svg.maximize-svg {
 	opacity: 1;
 }
 
@@ -113,4 +113,9 @@
 	margin-left: 1px;
 	opacity: 0;
 	display: none;
+}
+
+.tb-mac.unfocused .titlebar-stoplight:not(:hover) > * {
+	background-color: #dcdcdc;
+	border-color: #d0d0d0;
 }
