@@ -1,22 +1,21 @@
 # titlebar
 
 Emulate OS X window title bar. Extracted from [mafintosh/playback](https://github.com/mafintosh/playback). See the [live demo](http://kapetan.github.io/titlebar/demo/index.html).
-
-	npm install titlebar
+```bash
+npm install titlebar --save
+```
 
 # Usage
 
 Used with browserify or in a similar enviroment.
 
-```javascript
-var titlebar = require('titlebar');
+```js
+const titlebar = require('titlebar');
+const t = titlebar();
 
-var t = titlebar();
 t.appendTo(document.body);
 
-t.on('close', function(e) {
-	console.log('close');
-});
+t.on('close', e => console.log('close'));
 
 // t.element exposes the root dom element
 t.element.appendChild(document.createElement('div'));
