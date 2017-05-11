@@ -12,13 +12,13 @@
 	-webkit-app-region: drag;
 }
 
-.tb-win .titlebar-stoplight {
+.tb-win .titlebar-controls {
 	float: right;
 	text-align: left;
 }
 
 .tb-win.titlebar:after,
-.tb-win .titlebar-stoplight:after {
+.tb-win .titlebar-controls:after {
 	content: ' ';
 	display: table;
 	clear: both;
@@ -83,6 +83,6 @@
 	fill: #fff;
 }
 
-.tb-win.unfocused .titlebar-stoplight:not(:hover) svg {
+.tb-win.unfocused .titlebar-controls:not(:hover) svg {
 	opacity: 60%;
 }

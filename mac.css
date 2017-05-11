@@ -7,21 +7,21 @@
 	-webkit-app-region: drag;
 }
 
-.tb-mac .titlebar-stoplight {
+.tb-mac .titlebar-controls {
 	float: left;
 	text-align: left;
 }
 
 .tb-mac.titlebar:after,
-.tb-mac .titlebar-stoplight:after {
+.tb-mac .titlebar-controls:after {
 	content: ' ';
 	display: table;
 	clear: both;
 }
 
-.tb-mac .titlebar-stoplight:hover svg,
-.tb-mac .titlebar-stoplight:hover svg.fullscreen-svg,
-.tb-mac .titlebar-stoplight:hover svg.maximize-svg {
+.tb-mac .titlebar-controls:hover svg,
+.tb-mac .titlebar-controls:hover svg.fullscreen-svg,
+.tb-mac .titlebar-controls:hover svg.maximize-svg {
 	opacity: 1;
 }
 
@@ -115,7 +115,7 @@
 	display: none;
 }
 
-.tb-mac.unfocused .titlebar-stoplight:not(:hover) > * {
+.tb-mac.unfocused .titlebar-controls:not(:hover) > * {
 	background-color: #dcdcdc;
 	border-color: #d0d0d0;
 }

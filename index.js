@@ -8,10 +8,10 @@ var $ = require('dombo');
 var ALT = 18;
 
 var $window = $(window);
-var styleMac = fs.readFileSync(__dirname + '/index-mac.css', 'utf-8');
-var htmlMac = fs.readFileSync(__dirname + '/index-mac.html', 'utf-8');
-var styleWin = fs.readFileSync(__dirname + '/index-win.css', 'utf-8');
-var htmlWin = fs.readFileSync(__dirname + '/index-win.html', 'utf-8');
+var styleMac = fs.readFileSync(__dirname + '/mac.css', 'utf-8');
+var htmlMac = fs.readFileSync(__dirname + '/mac.html', 'utf-8');
+var styleWin = fs.readFileSync(__dirname + '/win.css', 'utf-8');
+var htmlWin = fs.readFileSync(__dirname + '/win.html', 'utf-8');
 
 var TitleBar = function(options) {
 	if(!(this instanceof TitleBar)) return new TitleBar(options);
