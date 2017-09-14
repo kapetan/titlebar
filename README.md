@@ -32,3 +32,10 @@ The initializer function accepts an options object.
 - `style` (default `true`): Disable default styling.
 - `draggable` (default `true`): Disable the [-webkit-app-region](https://developer.chrome.com/apps/app_window) CSS property on the root element. Allows a frameless windows to be dragged in an `electron` application.
 - `os` (defaults to current OS, or `mac` if unrecognized): Set the style of title bar to either `mac` or `win`, depending on which OS's title bar you want to mimic.
+
+# To do
+
+* Make React compatible
+* Add generic title bar (similar to [hyper](http://hyper.is)) to use when no os detected or option given
+* Rename the `os` option to `style`
+* Slightly rename repo and publish to npm
