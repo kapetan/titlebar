@@ -12,11 +12,19 @@
 			};
 		};
 
-		var t = titlebar()
+		var tm = titlebar({'os':'mac'})
 			.appendTo(document.body)
 			.on('close', log('close'))
 			.on('minimize', log('minimize'))
 			.on('fullscreen', log('fullscreen'))
+			.on('maximize', log('maximize'));
+
+		document.write('<br>');
+
+		var tw = titlebar({'os':'win'})
+			.appendTo(document.body)
+			.on('close', log('close'))
+			.on('minimize', log('minimize'))
 			.on('maximize', log('maximize'));
 	</script>
 </body>

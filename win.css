@@ -1,0 +1,88 @@
+.titlebar.tb-win {
+	display: block;
+	height: 30px;
+	padding: 0;
+	background-color: #fff;
+}
+.titlebar.tb-win.maximized {
+	height: 22px;
+}
+
+.tb-win.titlebar.webkit-draggable {
+	-webkit-app-region: drag;
+}
+
+.tb-win .titlebar-controls {
+	float: right;
+	text-align: left;
+}
+
+.tb-win.titlebar:after,
+.tb-win .titlebar-controls:after {
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+.tb-win .titlebar-minimize,
+.tb-win .titlebar-maximize,
+.tb-win .titlebar-close {
+	float: left;
+	width: 45px;
+	height: 29px;
+	margin: 0 0 1px 1px;
+	text-align: center;
+	line-height: 29px;
+
+	-webkit-transition: background-color .2s;
+	-moz-transition: background-color .2s;
+	-ms-transition: background-color .2s;
+	-o-transition: background-color .2s;
+	transition: background-color .2s;
+}
+.tb-win.maximized .titlebar-minimize,
+.tb-win.maximized .titlebar-maximize,
+.tb-win.maximized .titlebar-close {
+	height: 21px;
+	line-height: 21px;
+}
+
+.tb-win.titlebar.webkit-draggable .titlebar-minimize,
+.tb-win.titlebar.webkit-draggable .titlebar-maximize,
+.tb-win.titlebar.webkit-draggable .titlebar-close {
+	-webkit-app-region: no-drag;
+}
+
+.tb-win .titlebar-minimize svg,
+.tb-win .titlebar-maximize svg.maximize-svg,
+.tb-win .titlebar-maximize svg.unmaximize-svg,
+.tb-win .titlebar-close svg {
+	width: 10px;
+	height: 10px;
+}
+.tb-win .titlebar-close svg polygon {
+	-webkit-transition: fill .2s;
+	-moz-transition: fill .2s;
+	-ms-transition: fill .2s;
+	-o-transition: fill .2s;
+	transition: fill .2s;
+}
+
+.tb-win.titlebar:not(.maximized) .titlebar-maximize svg.unmaximize-svg { display: none; }
+.tb-win.titlebar.maximized .titlebar-maximize svg.maximize-svg { display: none; }
+
+.tb-win .titlebar-minimize:hover,
+.tb-win .titlebar-maximize:hover,
+.tb-win .titlebar-unmaximize:hover {
+	background-color: #E5E5E5;
+}
+.tb-win .titlebar-close:hover {
+	background-color: #E81123;
+}
+.tb-win .titlebar-close:hover svg polygon {
+	fill: #fff;
+}
+
+.tb-win.unfocused .titlebar-controls:not(:hover) svg {
+	opacity: 60%;
+}

@@ -1,0 +1,121 @@
+.titlebar.tb-mac {
+	padding: 0 3px;
+	background-color: #f6f6f6;
+}
+
+.tb-mac.titlebar.webkit-draggable {
+	-webkit-app-region: drag;
+}
+
+.tb-mac .titlebar-controls {
+	float: left;
+	text-align: left;
+}
+
+.tb-mac.titlebar:after,
+.tb-mac .titlebar-controls:after {
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+.tb-mac .titlebar-controls:hover svg,
+.tb-mac .titlebar-controls:hover svg.fullscreen-svg,
+.tb-mac .titlebar-controls:hover svg.maximize-svg {
+	opacity: 1;
+}
+
+.tb-mac.titlebar.alt svg.fullscreen-svg {
+	display: none;
+}
+
+.tb-mac.titlebar.alt svg.maximize-svg {
+	display: block;
+}
+
+.tb-mac .titlebar-close,
+.tb-mac .titlebar-minimize,
+.tb-mac .titlebar-fullscreen {
+	float: left;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin: 6px 4px;
+	line-height: 0;
+}
+
+.tb-mac.titlebar.webkit-draggable .titlebar-close,
+.tb-mac.titlebar.webkit-draggable .titlebar-minimize,
+.tb-mac.titlebar.webkit-draggable .titlebar-fullscreen {
+	-webkit-app-region: no-drag;
+}
+
+.tb-mac .titlebar-close {
+	border: 1px solid #e2463f;
+	background-color: #ff5f57;
+	margin-left: 6px;
+}
+
+.tb-mac .titlebar-close:active {
+	border-color: #ad3934;
+	background-color: #bf4943;
+}
+
+.tb-mac .titlebar-close svg {
+	width: 6px;
+	height: 6px;
+	margin-top: 2px;
+	margin-left: 2px;
+	opacity: 0;
+}
+
+.tb-mac .titlebar-minimize {
+	border: 1px solid #e1a116;
+	background-color: #ffbd2e;
+}
+
+.tb-mac .titlebar-minimize:active {
+	border-color: #ad7d15;
+	background-color: #bf9123;
+}
+
+.tb-mac .titlebar-minimize svg {
+	width: 8px;
+	height: 8px;
+	margin-top: 1px;
+	margin-left: 1px;
+	opacity: 0;
+}
+
+.tb-mac .titlebar-fullscreen,
+.tb-mac .titlebar-maximize {
+	border: 1px solid #12ac28;
+	background-color: #28c940;
+}
+
+.tb-mac .titlebar-fullscreen:active {
+	border-color: #128622;
+	background-color: #1f9a31;
+}
+
+.tb-mac .titlebar-fullscreen svg.fullscreen-svg {
+	width: 6px;
+	height: 6px;
+	margin-top: 2px;
+	margin-left: 2px;
+	opacity: 0;
+}
+
+.tb-mac .titlebar-fullscreen svg.maximize-svg {
+	width: 8px;
+	height: 8px;
+	margin-top: 1px;
+	margin-left: 1px;
+	opacity: 0;
+	display: none;
+}
+
+.tb-mac.unfocused .titlebar-controls:not(:hover) > * {
+	background-color: #dcdcdc;
+	border-color: #d0d0d0;
+}
